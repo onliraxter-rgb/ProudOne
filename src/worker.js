@@ -322,11 +322,6 @@ async function handleAIChat(request, env) {
   const user = await getUser(request, env);
   if (!user) return json({ error: 'Not authenticated' }, 401);
 
-  const groqKey = env.GROQ_API_KEY;
-  if (!groqKey) {
-    return json({ error: 'AI service not configured. Contact admin.' }, 503);
-  }
-
   const body = await request.json();
   const { system, message, max_tokens, temperature } = body;
 
@@ -334,35 +329,62 @@ async function handleAIChat(request, env) {
     return json({ error: 'Message is required' }, 400);
   }
 
-  // Call Groq API with server-side key
-  const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${groqKey}`
-    },
-    body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
-      max_tokens: Math.min(max_tokens || 900, 2000), // cap at 2000
-      temperature: temperature || 0.7,
-      messages: [
-        { role: 'system', content: system || 'You are a helpful assistant.' },
-        { role: 'user', content: message }
-      ]
-    })
-  });
-
-  if (!groqResponse.ok) {
-    const status = groqResponse.status;
-    if (status === 429) return json({ error: 'RATE_LIMIT' }, 429);
-    if (status === 401) return json({ error: 'AI key invalid. Contact admin.' }, 500);
-    return json({ error: 'AI service error' }, 502);
+  // 1. Use Cloudflare Workers AI (Free & Built-in) if available
+  if (env.AI) {
+    try {
+      const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+        messages: [
+          { role: 'system', content: system || 'You are a helpful assistant.' },
+          { role: 'user', content: message }
+        ],
+        max_tokens: Math.min(max_tokens || 900, 2000),
+        temperature: temperature || 0.7
+      });
+      if (response && response.response) {
+        return json({ reply: response.response });
+      }
+    } catch (e) {
+      console.error('CF AI Error:', e);
+    }
   }
 
-  const groqData = await groqResponse.json();
-  const reply = groqData.choices?.[0]?.message?.content || '';
+  // 2. Fallback to Groq API if configured
+  const groqKey = env.GROQ_API_KEY;
+  if (groqKey) {
+    try {
+      const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqKey}`
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          max_tokens: Math.min(max_tokens || 900, 2000),
+          temperature: temperature || 0.7,
+          messages: [
+            { role: 'system', content: system || 'You are a helpful assistant.' },
+            { role: 'user', content: message }
+          ]
+        })
+      });
 
-  return json({ reply });
+      if (!groqResponse.ok) {
+        const status = groqResponse.status;
+        if (status === 429) return json({ error: 'RATE_LIMIT' }, 429);
+        if (status === 401) return json({ error: 'AI key invalid. Contact admin.' }, 500);
+        return json({ error: 'AI service error' }, 502);
+      }
+
+      const groqData = await groqResponse.json();
+      const reply = groqData.choices?.[0]?.message?.content || '';
+      return json({ reply });
+    } catch (e) {
+      console.error('Groq Error:', e);
+    }
+  }
+
+  return json({ error: 'AI service not configured. Please check worker deployment.' }, 503);
 }
 
 // ── ADMIN HANDLERS ──────────────────────────────────────

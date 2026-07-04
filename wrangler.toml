@@ -12,3 +12,6 @@ database_id = "a2748fff-ea16-4138-a44a-af0f755c18c9"
 [vars]
 CORS_ORIGIN = "*"
 # Change to your actual domain in production, e.g. "https://proudone.pages.dev"
+
+[ai]
+binding = "AI"
