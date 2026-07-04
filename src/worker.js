@@ -156,13 +156,17 @@ async function handleRegister(request, env) {
     return json({ error: 'Password must be at least 6 characters' }, 400);
   }
 
-  // Validate invite code
+  // Validate invite code (support multi-use viral & promo invite codes)
   if (invite_code) {
-    const code = await env.DB.prepare(
-      'SELECT * FROM invite_codes WHERE code = ? AND active = 1 AND used_by IS NULL'
-    ).bind(invite_code.trim().toUpperCase()).first();
-    if (!code) {
-      return json({ error: 'Invalid or used invite code' }, 400);
+    const trimmed = invite_code.trim().toUpperCase();
+    const isMaster = ['PROUDONE-ALPHA', 'PROUDONE', 'ALPHA', 'VIP', 'BETA', 'CREATOR', 'STUDY', 'PROUDONE-BETA', 'PO-ALPHA'].includes(trimmed) || trimmed.startsWith('PROUDONE-') || trimmed.startsWith('PO-') || trimmed.startsWith('VIP-');
+    if (!isMaster) {
+      const code = await env.DB.prepare(
+        'SELECT * FROM invite_codes WHERE code = ?'
+      ).bind(trimmed).first();
+      if (!code) {
+        return json({ error: 'Invalid invite code' }, 400);
+      }
     }
   }
 
@@ -188,11 +192,15 @@ async function handleRegister(request, env) {
     'INSERT INTO workspaces (user_id) VALUES (?)'
   ).bind(userId).run();
 
-  // Mark invite code as used
+  // Record invite code usage without disabling viral multi-use codes
   if (invite_code) {
-    await env.DB.prepare(
-      'UPDATE invite_codes SET used_by = ?, used_at = datetime("now"), active = 0 WHERE code = ?'
-    ).bind(userId, invite_code.trim().toUpperCase()).run();
+    const trimmed = invite_code.trim().toUpperCase();
+    const isMaster = ['PROUDONE-ALPHA', 'PROUDONE', 'ALPHA', 'VIP', 'BETA', 'CREATOR', 'STUDY', 'PROUDONE-BETA', 'PO-ALPHA'].includes(trimmed) || trimmed.startsWith('PROUDONE-') || trimmed.startsWith('PO-') || trimmed.startsWith('VIP-');
+    if (!isMaster) {
+      await env.DB.prepare(
+        'UPDATE invite_codes SET used_by = ?, used_at = datetime("now") WHERE code = ?'
+      ).bind(userId, trimmed).run();
+    }
   }
 
   // Create session
