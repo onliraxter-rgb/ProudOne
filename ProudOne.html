@@ -50,8 +50,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 .ob-dot.past{background:var(--ac);opacity:.4}
 .ob-step{font-size:11px;font-weight:800;color:var(--ac);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;font-family:'Outfit', var(--fn)}
 .ob-h{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;font-family:'Outfit', var(--fn);color:var(--t1)}
-.ob-p{font-size:13.5px;color:var(--t3);line-height:1.6;margin-bottom:22px}
-.ob-note{background:rgba(232,221,211,.08);border:1px solid rgba(232,221,211,.22);border-radius:18px;padding:14px 16px;font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:16px}
+.ob-note{background:#FAF6F0;border:1.5px solid var(--bd);border-radius:18px;padding:14px 16px;font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:16px}
 .ob-note a{color:var(--ac);font-weight:700;cursor:pointer;text-decoration:none}
 
 /* FIELDS */
@@ -1031,19 +1030,19 @@ function renderOB(){
         +'<div style="font-size:11px;font-weight:800;color:var(--ac);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;font-family:var(--fn);display:inline-flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#FCD34D;display:inline-block;box-shadow:0 0 10px #FCD34D"></span> ✦ Editorial Growth OS</div>'
         +'<div style="font-size:52px;font-weight:900;color:var(--t1);line-height:1.05;letter-spacing:-2px;margin-bottom:20px;font-family:\'Outfit\', var(--fn)">Proud<span style="color:var(--ac);font-weight:400">One.</span></div>'
         +'<div style="font-size:16px;color:var(--t2);line-height:1.65;max-width:440px;margin-bottom:38px;font-family:\'Outfit\', var(--fn)">The Scandinavian minimalist operating system for ambitious creators, students, and thinkers. Master your habits in silent luxury.</div>'
-        +'<div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(232,221,211,.2);border-radius:32px;padding:10px 20px;font-size:13px;color:var(--t1);box-shadow:0 8px 24px rgba(0,0,0,.3);font-family:\'Outfit\', var(--fn)">'
-          +'<span style="color:#6EE7B7;font-size:14px;text-shadow:0 0 10px #6EE7B7">●</span> <b>10,000+ Goals Mastered</b> <span style="color:var(--t4)">|</span> Built for Virality'
+        +'<div style="display:inline-flex;align-items:center;gap:12px;background:#FFFFFF;border:1.5px solid var(--bd);border-radius:32px;padding:10px 20px;font-size:13px;color:var(--t1);box-shadow:0 8px 24px rgba(120,100,80,.08);font-family:\'Outfit\', var(--fn)">'
+          +'<span style="color:#059669;font-size:14px;text-shadow:0 0 10px rgba(5,150,105,.3)">●</span> <b>10,000+ Goals Mastered</b> <span style="color:var(--t4)">|</span> Built for Virality'
         +'</div>'
       +'</div>'
-      +'<div style="width:100%;max-width:410px;background:rgba(22,19,17,.85);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(232,221,211,.2);border-radius:32px;padding:36px;box-shadow:0 24px 64px rgba(0,0,0,.6), 0 0 32px rgba(232,221,211,.05);position:relative">'
-        +'<div style="display:flex;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(232,221,211,.15);padding:6px;border-radius:18px;margin-bottom:28px">'
-          +'<button onclick="obAuthMode=\'login\';renderOB()" style="flex:1;padding:10px;border:none;background:'+(!isReg?'linear-gradient(135deg, #E8DDD3 0%, #C9B8A8 100%)':'transparent')+';color:'+(!isReg?'#110F0D':'var(--t3)')+';font-weight:800;border-radius:14px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:'+(!isReg?'0 4px 12px rgba(232,221,211,.25)':'none')+';font-size:13px;font-family:\'Outfit\', var(--fn)">Sign In</button>'
-          +'<button onclick="obAuthMode=\'register\';renderOB()" style="flex:1;padding:10px;border:none;background:'+(isReg?'linear-gradient(135deg, #E8DDD3 0%, #C9B8A8 100%)':'transparent')+';color:'+(isReg?'#110F0D':'var(--t3)')+';font-weight:800;border-radius:14px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:'+(isReg?'0 4px 12px rgba(232,221,211,.25)':'none')+';font-size:13px;font-family:\'Outfit\', var(--fn)">Create Account</button>'
+      +'<div style="width:100%;max-width:410px;background:#FFFFFF;border:1.5px solid var(--bd);border-radius:32px;padding:36px;box-shadow:0 24px 64px rgba(120,100,80,.15), 0 0 40px rgba(140,107,79,.06);position:relative">'
+        +'<div style="display:flex;gap:8px;background:#FAF6F0;border:1.5px solid var(--bd);padding:6px;border-radius:18px;margin-bottom:28px">'
+          +'<button onclick="obAuthMode=\'login\';renderOB()" style="flex:1;padding:10px;border:none;background:'+(!isReg?'linear-gradient(135deg, #2C221E 0%, #4A3A32 100%)':'transparent')+';color:'+(!isReg?'#FFFFFF':'var(--t3)')+';font-weight:800;border-radius:14px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:'+(!isReg?'0 4px 12px rgba(44,34,30,.25)':'none')+';font-size:13px;font-family:\'Outfit\', var(--fn)">Sign In</button>'
+          +'<button onclick="obAuthMode=\'register\';renderOB()" style="flex:1;padding:10px;border:none;background:'+(isReg?'linear-gradient(135deg, #2C221E 0%, #4A3A32 100%)':'transparent')+';color:'+(isReg?'#FFFFFF':'var(--t3)')+';font-weight:800;border-radius:14px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);box-shadow:'+(isReg?'0 4px 12px rgba(44,34,30,.25)':'none')+';font-size:13px;font-family:\'Outfit\', var(--fn)">Create Account</button>'
         +'</div>'
         +'<div class="ob-h" style="margin-bottom:6px;font-family:\'Outfit\', var(--fn);font-size:22px">'+title+'</div>'
         +'<div class="ob-p" style="margin-bottom:24px;font-family:\'Outfit\', var(--fn)">'+desc+'</div>'
         +bodies
-        +'<button class="btn-p" id="ob-auth-btn" onclick="submitAuth()" style="margin-top:14px;padding:16px;border-radius:18px;font-size:15px;background:linear-gradient(135deg, #E8DDD3 0%, #C9B8A8 100%);color:#110F0D;font-weight:800;font-family:\'Outfit\', var(--fn);box-shadow:0 8px 24px rgba(232,221,211,.25)">'+(isReg ? 'Get Started &mdash; It\'s Free &rarr;' : 'Log In &rarr;')+'</button>'
+        +'<button class="btn-p" id="ob-auth-btn" onclick="submitAuth()" style="margin-top:14px;padding:16px;border-radius:18px;font-size:15px;background:linear-gradient(135deg, #2C221E 0%, #4A3A32 100%);color:#FFFFFF;font-weight:800;font-family:\'Outfit\', var(--fn);box-shadow:0 8px 24px rgba(44,34,30,.25)">'+(isReg ? 'Get Started &mdash; It\'s Free &rarr;' : 'Log In &rarr;')+'</button>'
       +'</div>'
     +'</div>';
     return;
@@ -1763,11 +1762,10 @@ function drawRadar(){
   ];
   v=v.map(function(x){return Math.max(5,x);});
   var angs=labels.map(function(_,i){return (i/labels.length)*Math.PI*2-Math.PI/2;});
-  var dark=window.matchMedia('(prefers-color-scheme:dark)').matches;
-  var gc=dark?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
-  var fc=dark?'rgba(59,130,246,.15)':'rgba(37,99,235,.10)';
-  var sc=dark?'#3B82F6':'#2563EB';
-  var tc=dark?'rgba(255,255,255,.35)':'rgba(0,0,0,.35)';
+  var gc='rgba(140,107,79,.15)';
+  var fc='rgba(140,107,79,.15)';
+  var sc='#8C6B4F';
+  var tc='rgba(90,77,66,.8)';
   ctx2.clearRect(0,0,220,220);
   [20,40,60,80].forEach(function(p){
     ctx2.beginPath();
@@ -1872,7 +1870,7 @@ function renderShareCard(){
   cx.stroke();
   
   // Inner subtle border
-  cx.strokeStyle=dark?'rgba(197,180,165,.2)':'rgba(184,150,62,.15)';cx.lineWidth=1;
+  cx.strokeStyle='rgba(184,150,62,.15)';cx.lineWidth=1;
   if(cx.roundRect)cx.roundRect(14,14,W-28,H-28,10);else cx.rect(14,14,W-28,H-28);
   cx.stroke();
   
@@ -1880,22 +1878,22 @@ function renderShareCard(){
   cx.font='28px serif';cx.textAlign='center';cx.fillText('🏆',W/2,48);
   
   // "Certificate of Achievement" header
-  cx.fillStyle=dark?'#D4C5B9':'#8B7332';cx.font='600 9px '+font;
+  cx.fillStyle='#8B7332';cx.font='600 9px '+font;
   cx.letterSpacing='3px';
   cx.fillText('OFFICIAL PROUDONE HERO CERTIFICATE',W/2,68);
   
   // User name
   var p=G.profile||{};
-  cx.fillStyle=dark?'#F5EFE6':'#1A1A19';cx.font='700 26px '+font;
+  cx.fillStyle='#1A1A19';cx.font='700 26px '+font;
   cx.fillText(p.name||'Ambitious Creator',W/2,100);
   
   // Divider line
-  cx.strokeStyle=dark?'#D4C5B9':'#B8963E';cx.lineWidth=0.5;
+  cx.strokeStyle='#B8963E';cx.lineWidth=0.5;
   cx.beginPath();cx.moveTo(W/2-60,110);cx.lineTo(W/2+60,110);cx.stroke();
   
   // Achievement description
   var lv=getLV();var best=Math.max(G.str.study||0,G.str.gym||0);
-  cx.fillStyle=dark?'rgba(245,239,230,.55)':'rgba(26,26,25,.5)';cx.font='400 11px '+font;
+  cx.fillStyle='rgba(26,26,25,.5)';cx.font='400 11px '+font;
   cx.fillText('Has achieved '+lv.n+' rank with a '+best+' day consistency streak',W/2,128);
   cx.fillText('on ProudOne — The Editorial Growth OS',W/2,143);
   
@@ -1910,18 +1908,18 @@ function renderShareCard(){
   var sx=(W-totalW)/2;
   stats.forEach(function(s,i){
     var x=sx+i*(sw+sg);
-    cx.fillStyle=dark?'rgba(245,239,230,.04)':'rgba(0,0,0,.03)';
+    cx.fillStyle='rgba(0,0,0,.03)';
     if(cx.roundRect)cx.roundRect(x,160,sw,46,6);else cx.rect(x,160,sw,46);cx.fill();
-    cx.fillStyle=dark?'#D4C5B9':'#A8896C';cx.font='700 18px '+font;cx.fillText(s.v,x+sw/2,182);
-    cx.fillStyle=dark?'rgba(245,239,230,.4)':'rgba(26,26,25,.35)';cx.font='600 7px '+font;cx.fillText(s.l,x+sw/2,196);
+    cx.fillStyle='#A8896C';cx.font='700 18px '+font;cx.fillText(s.v,x+sw/2,182);
+    cx.fillStyle='rgba(26,26,25,.35)';cx.font='600 7px '+font;cx.fillText(s.l,x+sw/2,196);
   });
   
   // Date and branding
   var today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  cx.fillStyle=dark?'rgba(245,239,230,.3)':'rgba(26,26,25,.25)';cx.font='400 9px '+font;
+  cx.fillStyle='rgba(26,26,25,.25)';cx.font='400 9px '+font;
   cx.fillText(today,W/2,232);
   
-  cx.fillStyle=dark?'#D4C5B9':'#8C6D50';cx.font='600 11px '+font;
+  cx.fillStyle='#8C6D50';cx.font='600 11px '+font;
   cx.fillText('Powered by ProudOne • proudone.pages.dev',W/2,252);
   
   cx.textAlign='left';
