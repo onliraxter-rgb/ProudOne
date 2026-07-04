@@ -1,6 +1,7 @@
 name = "proudone-api"
 main = "src/worker.js"
 compatibility_date = "2024-12-01"
+pages_build_output_dir = "public"
 
 [[d1_databases]]
 binding = "DB"
