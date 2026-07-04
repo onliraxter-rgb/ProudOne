@@ -587,23 +587,30 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
           </div>
         </div>
       </div>
-      <div id="ss-mentor" style="display:none">
-        <div class="card-ac" style="margin-bottom:11px">
-          <div style="font-size:11px;font-weight:600;color:var(--ac);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">AI MENTOR</div>
-          <div style="font-size:13px;color:var(--t2);line-height:1.6">Ask me anything about your goals. I'll explain clearly with structure, examples, and actionable steps.</div>
+      <div id="ss-mentor" style="display:none;position:relative;height:calc(100svh - 180px);display:flex;flex-direction:column;justify-content:space-between">
+        <div id="mentor-stream" style="flex:1;overflow-y:auto;padding:10px 4px 20px;display:flex;flex-direction:column;gap:16px">
+          <div id="mentor-empty" style="margin:auto 0;text-align:center;padding:40px 10px">
+            <div style="width:52px;height:52px;border-radius:50%;background:var(--acb);border:1px solid var(--acr);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;color:var(--ac);box-shadow:var(--sh1)">✨</div>
+            <div style="font-size:22px;font-weight:700;color:var(--t1);letter-spacing:-.5px;margin-bottom:6px">How can I help you level up today?</div>
+            <div style="font-size:13px;color:var(--t3);margin-bottom:28px">Your personal AI mentor, built for deep focus and structured growth.</div>
+            
+            <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px;margin:0 auto">
+              <button onclick="sendQuickPrompt('💡 Explain Web Dev in simple, structured terms')" style="background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:9px 16px;font-size:13px;color:var(--t2);cursor:pointer;transition:all .2s;box-shadow:var(--sh0)">💡 Explain Web Dev simply</button>
+              <button onclick="sendQuickPrompt('🔥 Build a 7-day consistency roadmap for my goals')" style="background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:9px 16px;font-size:13px;color:var(--t2);cursor:pointer;transition:all .2s;box-shadow:var(--sh0)">🔥 7-day consistency roadmap</button>
+              <button onclick="sendQuickPrompt('⚡ Give me 3 actionable focus hacks for deep work')" style="background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:9px 16px;font-size:13px;color:var(--t2);cursor:pointer;transition:all .2s;box-shadow:var(--sh0)">⚡ 3 actionable focus hacks</button>
+              <button onclick="sendQuickPrompt('🎯 Review my habits & give me a motivational boost')" style="background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:9px 16px;font-size:13px;color:var(--t2);cursor:pointer;transition:all .2s;box-shadow:var(--sh0)">🎯 Review my habits</button>
+            </div>
+          </div>
+          <div id="mentor-out" style="display:flex;flex-direction:column;gap:12px"></div>
         </div>
-        <div class="sec">YOUR FOCUS AREA</div>
-        <div id="mentor-subs" style="margin-bottom:10px"></div>
-        <div class="sec">MODE</div>
-        <div style="margin-bottom:11px">
-          <span class="mentor-chip on" data-mode="explain" onclick="selMMode(this)">&#128214; Explain Topic</span>
-          <span class="mentor-chip" data-mode="pyq" onclick="selMMode(this)">&#128221; PYQ Practice</span>
-          <span class="mentor-chip" data-mode="revision" onclick="selMMode(this)">&#9889; Quick Revision</span>
-          <span class="mentor-chip" data-mode="marks" onclick="selMMode(this)">&#127919; Max Marks Tips</span>
+
+        <div style="flex-shrink:0;padding-top:10px">
+          <div style="display:flex;align-items:center;background:var(--sf);border:1.5px solid var(--bd2);border-radius:30px;padding:6px 6px 6px 18px;box-shadow:var(--sh2);max-width:720px;margin:0 auto">
+            <input type="text" id="mentor-q" placeholder="Message your AI Mentor..." style="flex:1;border:none;background:transparent;color:var(--t1);font-size:14px;outline:none;padding:6px 0" onkeydown="if(event.key==='Enter')askMentor()">
+            <button onclick="askMentor()" style="width:38px;height:38px;border-radius:50%;background:var(--ac);color:#110F0D;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;flex-shrink:0;box-shadow:0 2px 8px var(--acr)">➤</button>
+          </div>
+          <div style="text-align:center;font-size:11px;color:var(--t4);margin-top:6px">Powered by Cloudflare Workers AI • Fast & Secure</div>
         </div>
-        <div class="fi"><textarea class="fi-i" id="mentor-q" rows="2" placeholder="What do you want to learn or get help with?" style="resize:none;line-height:1.5"></textarea></div>
-        <button class="gen-btn" onclick="askMentor()">&#9889; Ask Mentor</button>
-        <div id="mentor-out"></div>
       </div>
       <div id="ss-sheets" style="display:none">
         <div class="card-am" style="margin-bottom:11px">
@@ -1385,34 +1392,48 @@ function selMSub(el2,sub){
   document.querySelectorAll('#ss-mentor .mentor-chip[onclick*="selMSub"]').forEach(function(c){c.classList.remove('on');});
   el2.classList.add('on');mSub=sub;
 }
-function selMMode(el2){
-  document.querySelectorAll('[data-mode]').forEach(function(c){c.classList.remove('on');});
-  el2.classList.add('on');mMode=el2.getAttribute('data-mode');
-  var q=el('mentor-q');
-  var ph={explain:'What topic do you want explained? e.g. "Explain B+ trees"',
-    pyq:'Ask for PYQs. e.g. "Give 5 PYQs on OS scheduling"',
-    revision:'Quick revision of? e.g. "Revise SQL joins fast"',
-    marks:'Which topic? e.g. "Max marks in DBMS normalization"'};
-  if(q)q.placeholder=ph[mMode]||'Ask anything...';
+function sendQuickPrompt(q){
+  var inp = el('mentor-q');
+  if(inp) { inp.value = q; askMentor(); }
 }
 function askMentor(){
   var q=(el('mentor-q')||{}).value||'';q=q.trim();
   if(!q){notify('Type your question first');return;}
-  var out=el('mentor-out');
-  out.innerHTML='<div class="plan-box"><div class="plan-load">Thinking...</div></div>';
+  
+  var empty = el('mentor-empty'); if(empty) empty.style.display = 'none';
+  var out = el('mentor-out'); if(!out) return;
+  
+  var userDiv = document.createElement('div');
+  userDiv.style.cssText = 'align-self:flex-end;background:var(--ac);color:#110F0D;padding:12px 18px;border-radius:20px 20px 4px 20px;font-weight:600;font-size:14px;max-width:80%;box-shadow:var(--sh1);margin-bottom:12px;word-break:break-word';
+  userDiv.textContent = q;
+  out.appendChild(userDiv);
+
+  var aiDiv = document.createElement('div');
+  aiDiv.style.cssText = 'align-self:flex-start;background:var(--sf);border:1px solid var(--bd);padding:16px 20px;border-radius:20px 20px 20px 4px;color:var(--t2);font-size:14px;max-width:90%;box-shadow:var(--sh1);margin-bottom:16px;line-height:1.65';
+  aiDiv.innerHTML = '<span style="display:inline-block;animation:spin 1s infinite">✨</span> <b style="color:var(--t1)">Thinking...</b>';
+  out.appendChild(aiDiv);
+  
+  el('mentor-q').value = '';
+  var stream = el('mentor-stream'); if(stream) stream.scrollTop = stream.scrollHeight;
+
   var c=ctx();
-  var modeInstr={
-    explain:'Structure: TOPIC EXPLANATION, KEY CONCEPTS, EXAMPLES, EXAM TIPS. Step by step. Simple language. Real examples.',
-    pyq:'Create 5 exam questions. For each: PRACTICE QUESTIONS, approach, step-by-step SOLUTION, marks tip. University exam style.',
-    revision:'Fast revision: IMPORTANT POINTS (bullets, exam-critical only), KEY FORMULAS/DEFINITIONS, REVISION SUMMARY (3 lines).',
-    marks:'MAX MARKS TIPS: what examiners want, common mistakes, answer format, key phrases that get marks.'
-  };
-  var sys='You are a study mentor for '+c.name+', '+c.year+'. Subject: '+(mSub||c.subjects)+'. Goal: '+c.goal
-    +'. Be structured, sequential, exam-focused. Match AKTU/state university exam style. No random answers.';
-  var usr='Subject: '+(mSub||c.subjects)+'. Mode: '+mMode+'. '+modeInstr[mMode]+'\nQuestion: '+q;
-  callAI(sys,usr,1200,function(r,e){
-    if(e)out.innerHTML='<div class="plan-box"><div class="plan-load" style="color:var(--rd)">'+aiErr(e)+'</div></div>';
-    else{renderPlan(r,out,(mSub||'Mentor')+' - '+mMode);logAct('study',2);G.str.study=(G.str.study||0)+1;ss('rx5_str',G.str);}
+  var sys='You are a top-tier executive study & life mentor for '+c.name+', '+c.year+'. Goal: '+c.goal+'. Provide clear, highly structured, actionable, and encouraging guidance in clean markdown with bullet points and bold headers.';
+  callAI(sys, q, 1200, function(r,e){
+    if(e){
+      aiDiv.innerHTML = '<span style="color:var(--rd)">'+aiErr(e)+'</span>';
+    } else {
+      var formatted = esc(r).replace(/\n\n+/g, '<br><br>').replace(/\n/g, '<br>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong style="color:var(--ac);font-weight:700">$1</strong>')
+        .replace(/\* ([^\n]+)/g, '<div style="display:flex;gap:8px;margin:4px 0"><span style="color:var(--ac)">•</span><span>$1</span></div>')
+        .replace(/#+ ([^\n]+)/g, '<div style="font-size:15px;font-weight:700;color:var(--t1);margin:12px 0 4px;border-bottom:1px solid var(--bd);padding-bottom:4px">$1</div>');
+        
+      aiDiv.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--bd);padding-bottom:8px">'
+        +'<span style="font-size:11px;font-weight:700;color:var(--ac);letter-spacing:1px">✦ AI MENTOR</span>'
+        +'<button onclick="navigator.clipboard.writeText(this.getAttribute(\'data-t\'));notify(\'Copied!\')" data-t="'+esc(r)+'" style="background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:4px 10px;font-size:11px;color:var(--t2);cursor:pointer">📋 Copy</button>'
+      +'</div><div style="font-size:14px;color:var(--t1)">'+formatted+'</div>';
+      logAct('study',2);G.str.study=(G.str.study||0)+1;ss('rx5_str',G.str);
+    }
+    if(stream) stream.scrollTop = stream.scrollHeight;
   });
 }
 
