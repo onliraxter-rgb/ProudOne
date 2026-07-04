@@ -1796,17 +1796,17 @@ function renderShareCard(){
   
   // Background gradient
   var bg=cx.createLinearGradient(0,0,W,H);
-  if(dark){bg.addColorStop(0,'#0F0F1A');bg.addColorStop(1,'#1A1028');}
+  if(dark){bg.addColorStop(0,'#110F0D');bg.addColorStop(1,'#1D1916');}
   else{bg.addColorStop(0,'#FEFDFB');bg.addColorStop(1,'#F5F0EB');}
   cx.fillStyle=bg;cx.fillRect(0,0,W,H);
   
   // Gold border
-  cx.strokeStyle=dark?'#C9A84C':'#B8963E';cx.lineWidth=2;
+  cx.strokeStyle=dark?'#C5B4A5':'#B8963E';cx.lineWidth=2;
   if(cx.roundRect)cx.roundRect(8,8,W-16,H-16,12);else cx.rect(8,8,W-16,H-16);
   cx.stroke();
   
   // Inner subtle border
-  cx.strokeStyle=dark?'rgba(201,168,76,.2)':'rgba(184,150,62,.15)';cx.lineWidth=1;
+  cx.strokeStyle=dark?'rgba(197,180,165,.2)':'rgba(184,150,62,.15)';cx.lineWidth=1;
   if(cx.roundRect)cx.roundRect(14,14,W-28,H-28,10);else cx.rect(14,14,W-28,H-28);
   cx.stroke();
   
@@ -1814,24 +1814,24 @@ function renderShareCard(){
   cx.font='28px serif';cx.textAlign='center';cx.fillText('🏆',W/2,48);
   
   // "Certificate of Achievement" header
-  cx.fillStyle=dark?'#C9A84C':'#8B7332';cx.font='600 9px '+font;
+  cx.fillStyle=dark?'#D4C5B9':'#8B7332';cx.font='600 9px '+font;
   cx.letterSpacing='3px';
-  cx.fillText('CERTIFICATE OF ACHIEVEMENT',W/2,68);
+  cx.fillText('OFFICIAL PROUDONE HERO CERTIFICATE',W/2,68);
   
   // User name
   var p=G.profile||{};
-  cx.fillStyle=dark?'#EEEEED':'#1A1A19';cx.font='700 26px '+font;
-  cx.fillText(p.name||'User',W/2,100);
+  cx.fillStyle=dark?'#F5EFE6':'#1A1A19';cx.font='700 26px '+font;
+  cx.fillText(p.name||'Ambitious Creator',W/2,100);
   
   // Divider line
-  cx.strokeStyle=dark?'#C9A84C':'#B8963E';cx.lineWidth=0.5;
+  cx.strokeStyle=dark?'#D4C5B9':'#B8963E';cx.lineWidth=0.5;
   cx.beginPath();cx.moveTo(W/2-60,110);cx.lineTo(W/2+60,110);cx.stroke();
   
   // Achievement description
   var lv=getLV();var best=Math.max(G.str.study||0,G.str.gym||0);
-  cx.fillStyle=dark?'rgba(238,238,237,.5)':'rgba(26,26,25,.5)';cx.font='400 11px '+font;
-  cx.fillText('Has achieved '+lv.n+' rank with a '+best+' day streak',W/2,128);
-  cx.fillText('on ProudOne — Personal Growth OS',W/2,143);
+  cx.fillStyle=dark?'rgba(245,239,230,.55)':'rgba(26,26,25,.5)';cx.font='400 11px '+font;
+  cx.fillText('Has achieved '+lv.n+' rank with a '+best+' day consistency streak',W/2,128);
+  cx.fillText('on ProudOne — The Editorial Growth OS',W/2,143);
   
   // Stats row
   var stats=[
@@ -1844,20 +1844,19 @@ function renderShareCard(){
   var sx=(W-totalW)/2;
   stats.forEach(function(s,i){
     var x=sx+i*(sw+sg);
-    cx.fillStyle=dark?'rgba(255,255,255,.04)':'rgba(0,0,0,.03)';
+    cx.fillStyle=dark?'rgba(245,239,230,.04)':'rgba(0,0,0,.03)';
     if(cx.roundRect)cx.roundRect(x,160,sw,46,6);else cx.rect(x,160,sw,46);cx.fill();
-    cx.fillStyle=dark?'#6366F1':'#4F46E5';cx.font='700 18px '+font;cx.fillText(s.v,x+sw/2,182);
-    cx.fillStyle=dark?'rgba(238,238,237,.35)':'rgba(26,26,25,.35)';cx.font='600 7px '+font;cx.fillText(s.l,x+sw/2,196);
+    cx.fillStyle=dark?'#D4C5B9':'#A8896C';cx.font='700 18px '+font;cx.fillText(s.v,x+sw/2,182);
+    cx.fillStyle=dark?'rgba(245,239,230,.4)':'rgba(26,26,25,.35)';cx.font='600 7px '+font;cx.fillText(s.l,x+sw/2,196);
   });
   
   // Date and branding
   var today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  cx.fillStyle=dark?'rgba(238,238,237,.25)':'rgba(26,26,25,.25)';cx.font='400 9px '+font;
+  cx.fillStyle=dark?'rgba(245,239,230,.3)':'rgba(26,26,25,.25)';cx.font='400 9px '+font;
   cx.fillText(today,W/2,232);
   
-  cx.fillStyle=dark?'rgba(238,238,237,.35)':'rgba(26,26,25,.35)';cx.font='600 10px '+font;
-  cx.fillText('ProudOne',W/2-20,252);
-  cx.fillStyle=dark?'#6366F1':'#4F46E5';cx.fillText('OS',W/2+14,252);
+  cx.fillStyle=dark?'#D4C5B9':'#8C6D50';cx.font='600 11px '+font;
+  cx.fillText('Powered by ProudOne • proudone.pages.dev',W/2,252);
   
   cx.textAlign='left';
 }
