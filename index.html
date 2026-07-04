@@ -670,16 +670,19 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
     </div>
 
     <!-- CHAT -->
-    <div class="scr chat-wrap" id="s-chat">
-      <div class="chat-hdr">
-        <div style="font-size:15px;font-weight:700;letter-spacing:-.2px">Ask ProudOne</div>
-        <div class="chat-ctx" id="chat-ctx">Ready</div>
+    <div class="scr chat-wrap" id="s-chat" style="position:relative;height:calc(100svh - 70px);display:flex;flex-direction:column;justify-content:space-between;background:var(--bg)">
+      <div class="chat-hdr" style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--bd);background:var(--sf);flex-shrink:0">
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--t1);letter-spacing:-.3px;font-family:var(--fn)">✦ ProudOne AI Executive Mentor</div>
+          <div class="chat-ctx" id="chat-ctx" style="font-size:12px;color:var(--t3);margin-top:3px">Ready</div>
+        </div>
+        <button onclick="el('msgs').innerHTML='';chatHist=[];initChatWelcome()" style="background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:6px 14px;font-size:11px;font-weight:600;color:var(--t2);cursor:pointer;transition:all .15s">🗑️ Clear Chat</button>
       </div>
-      <div class="qchips" id="qchips"></div>
-      <div class="msgs" id="msgs"></div>
-      <div class="chat-in-wrap">
-        <textarea class="chat-in" id="chat-inp" rows="1" placeholder="Ask anything..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}" oninput="autoR(this)"></textarea>
-        <button class="chat-send" id="chat-send-btn" onclick="sendChat()">&#x2191;</button>
+      <div class="qchips" id="qchips" style="display:flex;gap:8px;padding:12px 24px;border-bottom:1px solid var(--bd);background:var(--sf2);overflow-x:auto;flex-shrink:0"></div>
+      <div class="msgs" id="msgs" style="flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px"></div>
+      <div class="chat-in-wrap" style="padding:16px 24px;background:var(--sf);border-top:1px solid var(--bd);display:flex;gap:10px;align-items:center;flex-shrink:0">
+        <textarea class="chat-in" id="chat-inp" rows="1" placeholder="Ask your AI Mentor anything... (e.g. build me a 7-day consistency roadmap)" style="flex:1;background:var(--sf2);border:1.5px solid var(--bd);border-radius:24px;padding:12px 18px;color:var(--t1);font-size:14px;outline:none;resize:none;line-height:1.4" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}" oninput="autoR(this)"></textarea>
+        <button class="chat-send" id="chat-send-btn" onclick="sendChat()" style="width:44px;height:44px;border-radius:50%;background:var(--ac);color:#110F0D;border:none;font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px var(--acr);transition:transform .15s;flex-shrink:0">➤</button>
       </div>
     </div>
 
@@ -1754,41 +1757,56 @@ function drawRadar(){
 
 /* ── CHAT ── */
 var chatHist=[];
-var CHIPS=['Explain today topic','Give me 5 PYQs','Quick revision plan','Am I on track?','Reality check','Motivate me','Budget help'];
+var CHIPS=['💡 Explain Web Dev simply','🔥 Build a 7-day consistency roadmap','⚡ Give me 3 actionable focus hacks','🎯 Review my habits & motivate me','📊 Max marks exam strategy','🧘 How to prevent burnout'];
 function renderChips(){
   var e=el('qchips');if(!e)return;
-  var h='';CHIPS.forEach(function(c){h+='<div class="qc" onclick="sendChat(\''+c.replace(/'/g,'\\\'')+'\')">' +c+'</div>';});
+  var h='';CHIPS.forEach(function(c){h+='<div class="qc" onclick="sendChat(\''+c.replace(/'/g,'\\\'')+'\')" style="background:var(--sf);border:1px solid var(--bd);color:var(--t2);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;box-shadow:var(--sh0);transition:all .2s">' +c+'</div>';});
   e.innerHTML=h;
+}
+function initChatWelcome(){
+  var msgs=el('msgs');if(!msgs||msgs.children.length>0)return;
+  msgs.innerHTML='<div style="margin:auto 0;text-align:center;padding:40px 10px">'
+    +'<div style="width:56px;height:56px;border-radius:50%;background:var(--acb);border:1px solid var(--acr);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;color:var(--ac);box-shadow:var(--sh1)">✨</div>'
+    +'<div style="font-size:22px;font-weight:700;color:var(--t1);letter-spacing:-.5px;margin-bottom:6px">How can I help you level up today?</div>'
+    +'<div style="font-size:13px;color:var(--t3);max-width:440px;margin:0 auto;line-height:1.5">Your personal AI mentor, built for deep focus, structured roadmaps, and instant answers. Select a suggestion above or ask anything below.</div>'
+  +'</div>';
 }
 function updateChatCtx(){
   var c=ctx();var e=el('chat-ctx');
-  if(e)e.textContent=c.name+' \u00B7 '+c.year+' \u00B7 Rs'+c.budget+'/day \u00B7 '+c.diet+' diet';
+  if(e)e.textContent=c.name+' • '+c.role+' • Focus: '+c.studyHours+'/day • Goal: '+c.goal;
   renderChips();
+  initChatWelcome();
 }
 function buildChatSys(){
   var c=ctx();
-  return 'You are ProudOne, AI assistant for '+c.name+', '+c.year+' '+c.field+' student.'
-    +' Goal: '+c.goal+'. Budget Rs'+c.budget+'/day. Diet: '+c.diet+'. Study hrs: '+c.studyHours+'.'
-    +' DSA solved: '+c.dsa+'. Study streak: '+c.str.study+'. Gym streak: '+c.str.gym+'.'
-    +' Subjects: '+c.subjects+'.'
-    +' Rules: For study questions be structured and mentor-like. For finance be direct with numbers. For casual be friendly and chill. Never be preachy. Reference real user data when relevant. Keep responses concise unless depth needed.';
+  return 'You are ProudOne, top-tier AI Executive Mentor for '+c.name+', '+c.role+'.'
+    +' Goal: '+c.goal+'. Focus hours available: '+c.studyHours+'/day.'
+    +' Provide clear, highly structured, actionable, and encouraging guidance in clean markdown with bullet points and bold headers. Keep answers structured, practical, and inspiring.';
 }
 function sendChat(preset){
   var inp=el('chat-inp');var text=preset||(inp?inp.value:'');
   if(inp&&!preset){inp.value='';inp.style.height='auto';}
   text=text.trim();if(!text)return;
   var msgs=el('msgs');var btn=el('chat-send-btn');if(btn)btn.disabled=true;
-  msgs.innerHTML+='<div class="msg u" style="animation:fup .2s"><div class="msg-bub">'+esc(text)+'</div></div>';
+  
+  if(msgs.innerHTML.indexOf('How can I help you level up today?')!==-1) msgs.innerHTML='';
+  
+  msgs.innerHTML+='<div class="msg u" style="animation:fup .2s;align-self:flex-end;max-width:80%;margin-bottom:12px"><div class="msg-bub" style="background:var(--ac);color:#110F0D;padding:12px 18px;border-radius:20px 20px 4px 20px;font-weight:600;font-size:14px;box-shadow:var(--sh1);word-break:break-word">'+esc(text)+'</div></div>';
   var lid='m'+Date.now();
-  msgs.innerHTML+='<div class="msg a" id="'+lid+'"><div class="msg-from">ProudOne</div><div class="msg-bub"><div class="tdots"><div class="td"></div><div class="td"></div><div class="td"></div></div></div></div>';
+  msgs.innerHTML+='<div class="msg a" id="'+lid+'" style="align-self:flex-start;max-width:90%;margin-bottom:16px"><div class="msg-bub" style="background:var(--sf);border:1px solid var(--bd);padding:16px 20px;border-radius:20px 20px 20px 4px;color:var(--t2);font-size:14px;box-shadow:var(--sh1)"><span style="display:inline-block;animation:spin 1s infinite">✨</span> <b style="color:var(--t1)">Thinking...</b></div></div>';
   msgs.scrollTop=msgs.scrollHeight;
   chatHist.push({role:'user',content:text});if(chatHist.length>12)chatHist=chatHist.slice(-12);
   callAI(buildChatSys(),text,800,function(r,e2){
     chatHist.push({role:'assistant',content:r||''});
     var me=el(lid);
     if(me){
-      var fmt=e2?('<span style="color:var(--rd)">'+aiErr(e2)+'</span>'):((r||'').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>'));
-      me.outerHTML='<div class="msg a" style="animation:fup .2s"><div class="msg-from">ProudOne</div><div class="msg-bub">'+fmt+'</div></div>';
+      var fmt=e2?('<span style="color:var(--rd)">'+aiErr(e2)+'</span>'):(
+        esc(r).replace(/\n\n+/g, '<br><br>').replace(/\n/g, '<br>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong style="color:var(--ac);font-weight:700">$1</strong>')
+        .replace(/\* ([^\n]+)/g, '<div style="display:flex;gap:8px;margin:4px 0"><span style="color:var(--ac)">•</span><span>$1</span></div>')
+        .replace(/#+ ([^\n]+)/g, '<div style="font-size:15px;font-weight:700;color:var(--t1);margin:12px 0 4px;border-bottom:1px solid var(--bd);padding-bottom:4px">$1</div>')
+      );
+      me.outerHTML='<div class="msg a" style="animation:fup .2s;align-self:flex-start;max-width:90%;margin-bottom:16px"><div class="msg-bub" style="background:var(--sf);border:1px solid var(--bd);padding:16px 20px;border-radius:20px 20px 20px 4px;color:var(--t1);font-size:14px;box-shadow:var(--sh1);line-height:1.65"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--bd);padding-bottom:8px"><span style="font-size:11px;font-weight:700;color:var(--ac);letter-spacing:1px">✦ AI EXECUTIVE MENTOR</span><button onclick="navigator.clipboard.writeText(this.getAttribute(\'data-t\'));notify(\'Copied!\')" data-t="'+esc(r)+'" style="background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:4px 10px;font-size:11px;color:var(--t2);cursor:pointer">📋 Copy</button></div>'+fmt+'</div></div>';
     }
     if(btn)btn.disabled=false;
     var ms2=el('msgs');if(ms2)ms2.scrollTop=ms2.scrollHeight;
