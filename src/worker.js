@@ -329,10 +329,23 @@ async function handleAIChat(request, env) {
     return json({ error: 'Message is required' }, 400);
   }
 
-  // 1. Use Cloudflare Workers AI (Free & Built-in) if available
-  if (env.AI) {
+  // 1. Use Cloudflare Workers AI (Free & Built-in)
+  if (!env.AI) {
+    return json({ error: 'AI binding env.AI is undefined. Ensure [ai] binding = "AI" is in wrangler.toml.' }, 503);
+  }
+
+  const cfModels = [
+    '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+    '@cf/meta/llama-3.2-3b-instruct',
+    '@cf/meta/llama-3.1-8b-instruct-fast',
+    '@cf/meta/llama-3-8b-instruct',
+    '@cf/mistral/mistral-7b-instruct-v0.1'
+  ];
+
+  let lastErr = null;
+  for (const model of cfModels) {
     try {
-      const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+      const response = await env.AI.run(model, {
         messages: [
           { role: 'system', content: system || 'You are a helpful assistant.' },
           { role: 'user', content: message }
@@ -344,47 +357,12 @@ async function handleAIChat(request, env) {
         return json({ reply: response.response });
       }
     } catch (e) {
-      console.error('CF AI Error:', e);
+      lastErr = e;
+      console.error(`Model ${model} failed:`, e);
     }
   }
 
-  // 2. Fallback to Groq API if configured
-  const groqKey = env.GROQ_API_KEY;
-  if (groqKey) {
-    try {
-      const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${groqKey}`
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          max_tokens: Math.min(max_tokens || 900, 2000),
-          temperature: temperature || 0.7,
-          messages: [
-            { role: 'system', content: system || 'You are a helpful assistant.' },
-            { role: 'user', content: message }
-          ]
-        })
-      });
-
-      if (!groqResponse.ok) {
-        const status = groqResponse.status;
-        if (status === 429) return json({ error: 'RATE_LIMIT' }, 429);
-        if (status === 401) return json({ error: 'AI key invalid. Contact admin.' }, 500);
-        return json({ error: 'AI service error' }, 502);
-      }
-
-      const groqData = await groqResponse.json();
-      const reply = groqData.choices?.[0]?.message?.content || '';
-      return json({ reply });
-    } catch (e) {
-      console.error('Groq Error:', e);
-    }
-  }
-
-  return json({ error: 'AI service not configured. Please check worker deployment.' }, 503);
+  return json({ error: 'CF AI Error: ' + (lastErr?.message || String(lastErr)) }, 500);
 }
 
 // ── ADMIN HANDLERS ──────────────────────────────────────
