@@ -1,0 +1,14 @@
+name = "proudone-api"
+main = "src/worker.js"
+compatibility_date = "2024-12-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "proudone-db"
+database_id = "4879d9e1-ad2a-4ca7-b386-1cde0f1a2f5b"
+# After running: npx wrangler d1 create proudone-db
+# Copy the database_id from the output and paste it above
+
+[vars]
+CORS_ORIGIN = "*"
+# Change to your actual domain in production, e.g. "https://proudone.pages.dev"
