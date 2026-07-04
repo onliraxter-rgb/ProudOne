@@ -472,15 +472,17 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
       <div class="greet-main" id="greet-main">Let's make today count.</div>
 
       <!-- hero achievement card (Phase 8) -->
-      <div class="hero-achieve-card" onclick="openM('m-share')">
-        <div class="hac-bg-doodle"></div>
-        <div class="hac-content">
-          <div class="hac-tag">🏆 VERIFIED CREDENTIAL</div>
-          <div class="hac-title">Professional Growth Certificate</div>
-          <div class="hac-sub">You have achieved <b id="hac-rank-lbl">STARTER</b> rank. Click to preview & download your official certificate.</div>
+      <div class="hero-achieve-card" onclick="openM('m-share')" style="background:linear-gradient(135deg, var(--sf) 0%, var(--sf2) 100%);border:1px solid var(--bd2);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:var(--sh2);display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden">
+        <div style="position:absolute;right:-30px;top:-30px;width:180px;height:180px;background:radial-gradient(circle, var(--acb) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
+        <div class="hac-content" style="position:relative;z-index:1;flex:1">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--sf2);border:1px solid var(--bd);color:var(--ac);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">
+            <span>🏆</span> <span>OFFICIAL PROUDONE HERO CERTIFICATE</span>
+          </div>
+          <div style="font-size:20px;font-weight:700;color:var(--t1);margin-bottom:4px;letter-spacing:-.5px;font-family:var(--fn)">Professional Growth Certificate</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;max-width:500px">You have achieved <b id="hac-rank-lbl" style="color:var(--ac);font-weight:700">STARTER</b> rank. Verified for social sharing on LinkedIn & Instagram Stories.</div>
         </div>
-        <div class="hac-action">
-          <button class="hac-btn" onclick="event.stopPropagation();openM('m-share')">View Card &rarr;</button>
+        <div class="hac-action" style="position:relative;z-index:1;flex-shrink:0">
+          <button class="hac-btn" onclick="event.stopPropagation();openM('m-share')" style="background:var(--ac);color:#110F0D;border:none;border-radius:16px;padding:12px 20px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--acr);transition:all .2s">📥 Share / Export Card &rarr;</button>
         </div>
       </div>
 
