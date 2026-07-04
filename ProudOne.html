@@ -471,18 +471,28 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
       <div class="greet-sub" id="greet-sub">GOOD MORNING</div>
       <div class="greet-main" id="greet-main">Let's make today count.</div>
 
-      <!-- hero achievement card (Phase 8) -->
-      <div class="hero-achieve-card" onclick="openM('m-share')" style="background:linear-gradient(135deg, var(--sf) 0%, var(--sf2) 100%);border:1px solid var(--bd2);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:var(--sh2);display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden">
-        <div style="position:absolute;right:-30px;top:-30px;width:180px;height:180px;background:radial-gradient(circle, var(--acb) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
+      <!-- hero achievement card (Phase 8 - Luxury physical certificate aesthetic matching mockup) -->
+      <div class="hero-achieve-card" onclick="openM('m-share')" style="background:linear-gradient(135deg, #EAE0D5 0%, #D4C5B9 100%);border:2px solid #C5B4A5;border-radius:28px;padding:28px 32px;margin-bottom:28px;box-shadow:0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(234, 224, 213, 0.15);display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s, box-shadow .2s">
+        <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
+        <div style="position:absolute;left:-30px;bottom:-30px;width:180px;height:180px;background:radial-gradient(circle, rgba(197,180,165,0.3) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
         <div class="hac-content" style="position:relative;z-index:1;flex:1">
-          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--sf2);border:1px solid var(--bd);color:var(--ac);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">
-            <span>🏆</span> <span>OFFICIAL PROUDONE HERO CERTIFICATE</span>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(17,15,13,0.08);border:1px solid rgba(17,15,13,0.15);color:#110F0D;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
+            <span>🏆</span> <span>VERIFIED CREDENTIAL</span>
           </div>
-          <div style="font-size:20px;font-weight:700;color:var(--t1);margin-bottom:4px;letter-spacing:-.5px;font-family:var(--fn)">Professional Growth Certificate</div>
-          <div style="font-size:13px;color:var(--t2);line-height:1.6;max-width:500px">You have achieved <b id="hac-rank-lbl" style="color:var(--ac);font-weight:700">STARTER</b> rank. Verified for social sharing on LinkedIn & Instagram Stories.</div>
+          <div style="font-size:26px;font-weight:800;color:#110F0D;margin-bottom:6px;letter-spacing:-.8px;font-family:var(--fn)">CERTIFIED ACHIEVER: <span id="hac-name-lbl" style="text-decoration:underline;text-underline-offset:6px;text-decoration-color:#8C7A6B">HARSH</span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
+            <div style="background:rgba(255,255,255,0.6);border:1px solid rgba(197,180,165,0.5);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;color:#110F0D;display:flex;align-items:center;gap:6px">
+              <span>🔥</span> <span id="hac-str-lbl">7-Day Consistency Streak</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.6);border:1px solid rgba(197,180,165,0.5);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;color:#110F0D;display:flex;align-items:center;gap:6px">
+              <span>💎</span> <span id="hac-tier-lbl">Top 5% Focus Tier</span>
+            </div>
+          </div>
         </div>
         <div class="hac-action" style="position:relative;z-index:1;flex-shrink:0">
-          <button class="hac-btn" onclick="event.stopPropagation();openM('m-share')" style="background:var(--ac);color:#110F0D;border:none;border-radius:16px;padding:12px 20px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--acr);transition:all .2s">📥 Share / Export Card &rarr;</button>
+          <button class="hac-btn" onclick="event.stopPropagation();openM('m-share')" style="background:#110F0D;color:#EAE0D5;border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:16px 24px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(17,15,13,0.3);transition:all .2s;display:flex;align-items:center;gap:8px">
+            <span>📥</span> <span>Share / Export Certificate</span> <span>&rarr;</span>
+          </button>
         </div>
       </div>
 
@@ -818,10 +828,12 @@ function updateHdr(){
   var best=Math.max(G.str.study||0,G.str.gym||0);
   setText('hdr-streak','\uD83D\uDD25 '+best+' day');
   setText('hdr-level',getLV().n);
-  setText('hac-rank-lbl',getLV().n);
-  var p=G.profile||{};var nm=p.name||'Profile';
+  var p=G.profile||{};var nm=p.name||'HARSH';
   setText('hdr-prof-nm',nm);
   setText('dn-prof-nm',nm);
+  setText('hac-name-lbl', nm.toUpperCase());
+  setText('hac-str-lbl', best + '-Day Consistency Streak');
+  setText('hac-tier-lbl', 'Top ' + Math.max(1, Math.min(50, 50 - best * 3)) + '% Focus Tier');
   var ld=el('more-lv-ds');if(ld)ld.textContent=getLV().n+' \u00B7 '+best+' day streak';
 }
 
