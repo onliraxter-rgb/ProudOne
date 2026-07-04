@@ -25,6 +25,18 @@
   --glass:rgba(255,255,255,.88);
   --glass-bd:rgba(216,204,184,.6);
 }
+@media(prefers-color-scheme:dark){:root{
+  --bg:#110F0D;--sf:#191614;--sf2:#221E1C;--sf3:#2D2825;
+  --bd:rgba(230,215,200,.08);--bd2:rgba(230,215,200,.14);
+  --t1:#F5EFE6;--t2:rgba(245,239,230,.65);--t3:rgba(245,239,230,.38);--t4:rgba(245,239,230,.15);
+  --ac:#D4C5B9;--ac2:#C5B4A5;--acb:rgba(212,197,185,.08);--acr:rgba(212,197,185,.22);
+  --gr:#10B981;--grb:rgba(16,185,129,.1);
+  --rd:#F87171;--rdb:rgba(248,113,113,.1);
+  --am:#F59E0B;--amb:rgba(245,158,11,.1);
+  --sh0:0 1px 3px rgba(0,0,0,.3);--sh1:0 2px 8px rgba(0,0,0,.35);--sh2:0 8px 24px rgba(0,0,0,.5);
+  --glass:rgba(25,22,20,.75);
+  --glass-bd:rgba(230,215,200,.08);
+}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 @keyframes wiggle{0%,100%{transform:rotate(0deg)}20%,60%{transform:rotate(-14deg)}40%,80%{transform:rotate(14deg)}}
 @keyframes breathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.05);opacity:1}}
@@ -486,25 +498,25 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
       <div class="greet-main" id="greet-main">Let's make today count.</div>
 
       <!-- hero achievement card (Phase 8 - Luxury physical certificate aesthetic matching mockup) -->
-      <div class="hero-achieve-card" onclick="openM('m-share')" style="background:linear-gradient(135deg, #FFFFFF 0%, #FAF5ED 100%);border:2px solid #D8CCB8;border-radius:28px;padding:28px 32px;margin-bottom:28px;box-shadow:0 16px 36px rgba(120,100,80,.12);display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s, box-shadow .2s">
-        <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:radial-gradient(circle, rgba(140,107,79,0.1) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
-        <div style="position:absolute;left:-30px;bottom:-30px;width:180px;height:180px;background:radial-gradient(circle, rgba(140,107,79,0.08) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
+      <div class="hero-achieve-card" onclick="openM('m-share')" style="background:linear-gradient(135deg, #EAE0D5 0%, #D4C5B9 100%);border:2px solid #C5B4A5;border-radius:28px;padding:28px 32px;margin-bottom:28px;box-shadow:0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(234, 224, 213, 0.15);display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s, box-shadow .2s">
+        <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
+        <div style="position:absolute;left:-30px;bottom:-30px;width:180px;height:180px;background:radial-gradient(circle, rgba(197,180,165,0.3) 0%, transparent 70%);border-radius:50%;pointer-events:none"></div>
         <div class="hac-content" style="position:relative;z-index:1;flex:1">
-          <div style="display:inline-flex;align-items:center;gap:8px;background:#FDF1D6;border:1px solid #F3D288;color:#B47D14;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;box-shadow:0 2px 8px rgba(120,100,80,0.05)">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(17,15,13,0.08);border:1px solid rgba(17,15,13,0.15);color:#110F0D;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
             <span>🏆</span> <span>VERIFIED CREDENTIAL</span>
           </div>
-          <div style="font-size:26px;font-weight:800;color:#1E1815;margin-bottom:6px;letter-spacing:-.8px;font-family:var(--fn)">CERTIFIED ACHIEVER: <span id="hac-name-lbl" style="text-decoration:underline;text-underline-offset:6px;text-decoration-color:#8C6B4F">HARSH</span></div>
+          <div style="font-size:26px;font-weight:800;color:#110F0D;margin-bottom:6px;letter-spacing:-.8px;font-family:var(--fn)">CERTIFIED ACHIEVER: <span id="hac-name-lbl" style="text-decoration:underline;text-underline-offset:6px;text-decoration-color:#8C7A6B">HARSH</span></div>
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
-            <div style="background:#FFFFFF;border:1.5px solid var(--bd);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;color:#1E1815;display:flex;align-items:center;gap:6px;box-shadow:0 2px 6px rgba(120,100,80,.05)">
+            <div style="background:rgba(255,255,255,0.6);border:1px solid rgba(197,180,165,0.5);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;color:#110F0D;display:flex;align-items:center;gap:6px">
               <span>🔥</span> <span id="hac-str-lbl">7-Day Consistency Streak</span>
             </div>
-            <div style="background:#FFFFFF;border:1.5px solid var(--bd);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;color:#1E1815;display:flex;align-items:center;gap:6px;box-shadow:0 2px 6px rgba(120,100,80,.05)">
+            <div style="background:rgba(255,255,255,0.6);border:1px solid rgba(197,180,165,0.5);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;color:#110F0D;display:flex;align-items:center;gap:6px">
               <span>💎</span> <span id="hac-tier-lbl">Top 5% Focus Tier</span>
             </div>
           </div>
         </div>
         <div class="hac-action" style="position:relative;z-index:1;flex-shrink:0">
-          <button class="hac-btn" onclick="event.stopPropagation();openM('m-share')" style="background:linear-gradient(135deg, #2C221E 0%, #4A3A32 100%);color:#FFFFFF;border:none;border-radius:18px;padding:16px 24px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(44,34,30,0.25);transition:all .2s;display:flex;align-items:center;gap:8px">
+          <button class="hac-btn" onclick="event.stopPropagation();openM('m-share')" style="background:#110F0D;color:#EAE0D5;border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:16px 24px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(17,15,13,0.3);transition:all .2s;display:flex;align-items:center;gap:8px">
             <span>📥</span> <span>Share / Export Certificate</span> <span>&rarr;</span>
           </button>
         </div>
