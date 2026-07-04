@@ -1,6 +1,5 @@
 .dev.vars
 .wrangler/
-public/
 node_modules/
 dist/
 *.log
