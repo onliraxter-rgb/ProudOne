@@ -972,6 +972,8 @@ function submitAuth(){
   });
 }
 function renderOB(){
+  var sl = document.querySelector('#setup .ob-logo');
+  var st = document.querySelector('#setup .ob-tag');
   if(obStep===0){
     var isReg = obAuthMode === 'register';
     var title = isReg ? 'Create Account' : 'Welcome Back';
@@ -981,20 +983,34 @@ function renderOB(){
     if(isReg){
       bodies += '<div class="fi"><label class="fi-l">Invite Code (Optional)</label><input class="fi-i" id="ob-invite" placeholder="e.g. PO-ALPHA" style="text-transform:uppercase"></div>';
     }
-    bodies += '<div style="text-align:center;margin-top:10px;font-size:12px;color:var(--t2)">'
-      +(isReg ? 'Already have an account? <a onclick="toggleAuthMode()" style="color:var(--ac);font-weight:600;cursor:pointer">Log In</a>' 
-              : 'New to ProudOne? <a onclick="toggleAuthMode()" style="color:var(--ac);font-weight:600;cursor:pointer">Sign Up</a>')
-      +'</div>';
-      
-    el('ob-body').innerHTML='<div class="ob-dots">'+obDots()+'</div>'
-      +'<div class="ob-card"><div class="ob-step">Step 1 of 3</div>'
-      +'<div class="ob-h">'+title+'</div>'
-      +'<div class="ob-p">'+desc+'</div>'
-      +bodies
-      +'<button class="btn-p" id="ob-auth-btn" onclick="submitAuth()">'+(isReg ? 'Sign Up &rarr;' : 'Log In &rarr;')+'</button>'
-      +'</div>';
+    
+    if(sl) sl.style.display = 'none';
+    if(st) st.style.display = 'none';
+
+    el('ob-body').innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:60px;width:100%;max-width:980px;margin:0 auto;padding:20px 10px">'
+      +'<div style="flex:1;min-width:300px;text-align:left;padding:10px">'
+        +'<div style="font-size:11px;font-weight:600;color:var(--ac);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px">✦ Editorial Growth OS</div>'
+        +'<div style="font-size:46px;font-weight:700;color:var(--t1);line-height:1.1;letter-spacing:-1.5px;margin-bottom:18px;font-family:var(--fn)">Proud<span style="color:var(--ac);font-weight:400">One.</span></div>'
+        +'<div style="font-size:16px;color:var(--t2);line-height:1.6;max-width:420px;margin-bottom:36px">The Scandinavian minimalist operating system for ambitious creators, students, and thinkers. Master your habits in silent luxury.</div>'
+        +'<div style="display:inline-flex;align-items:center;gap:10px;background:var(--sf2);border:1px solid var(--bd);border-radius:30px;padding:8px 18px;font-size:12px;color:var(--t2);box-shadow:var(--sh1)">'
+          +'<span style="color:var(--gr);font-size:14px">●</span> <b>10,000+ Goals Mastered</b> <span style="color:var(--t4)">|</span> Built for Virality'
+        +'</div>'
+      +'</div>'
+      +'<div style="width:100%;max-width:390px;background:var(--sf);border:1px solid var(--bd);border-radius:28px;padding:32px;box-shadow:var(--sh2);position:relative">'
+        +'<div style="display:flex;gap:8px;background:var(--sf2);padding:4px;border-radius:14px;margin-bottom:24px">'
+          +'<button onclick="obAuthMode=\'login\';renderOB()" style="flex:1;padding:9px;border:none;background:'+(!isReg?'var(--sf)':'transparent')+';color:'+(!isReg?'var(--t1)':'var(--t3)')+';font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:'+(!isReg?'0 2px 8px rgba(0,0,0,.15)':'none')+';font-size:13px">Sign In</button>'
+          +'<button onclick="obAuthMode=\'register\';renderOB()" style="flex:1;padding:9px;border:none;background:'+(isReg?'var(--sf)':'transparent')+';color:'+(isReg?'var(--t1)':'var(--t3)')+';font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:'+(isReg?'0 2px 8px rgba(0,0,0,.15)':'none')+';font-size:13px">Create Account</button>'
+        +'</div>'
+        +'<div class="ob-h" style="margin-bottom:6px">'+title+'</div>'
+        +'<div class="ob-p" style="margin-bottom:22px">'+desc+'</div>'
+        +bodies
+        +'<button class="btn-p" id="ob-auth-btn" onclick="submitAuth()" style="margin-top:12px;padding:13px;border-radius:14px;font-size:15px;background:var(--ac);color:#110F0D;font-weight:700">'+(isReg ? 'Get Started &mdash; It\'s Free &rarr;' : 'Log In &rarr;')+'</button>'
+      +'</div>'
+    +'</div>';
     return;
   }
+  if(sl) sl.style.display = '';
+  if(st) st.style.display = '';
 
   var bodies=['','',''];
   bodies[1]='<div class="fi"><label class="fi-l">Your Name</label><input class="fi-i" id="ob-name" placeholder="e.g. Alex"></div>'
